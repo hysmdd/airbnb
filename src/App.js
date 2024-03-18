@@ -1,9 +1,13 @@
-import React, { memo } from 'react'
+import React, { memo } from "react";
+import HelloWorld from "components/hello-world";
 
 const App = memo(() => {
   return (
-    <div>App</div>
-  )
-})
+    <div>
+      <h2>App</h2>
+      <HelloWorld />
+    </div>
+  );
+});
 
-export default App
+export default App;
