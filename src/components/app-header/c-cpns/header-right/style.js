@@ -45,6 +45,7 @@ export const RightWrapper = styled.div`
     background: #fff;
     color: ${(props) => props.theme.text.primaryColor};
     cursor: pointer;
+    position: relative;
 
     /* transition: box-shadow 200ms ease;
     &:hover {
@@ -52,5 +53,34 @@ export const RightWrapper = styled.div`
     } */
 
     ${(props) => props.theme.mixin.boxShadow}
+
+    .panel {
+      position: absolute;
+      right: 0;
+      top: 54px;
+      width: 240px;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      color: #666;
+
+      .top {
+        border-bottom: 1px solid #ddd;
+      }
+      .top,
+      .bottom {
+        padding: 10px 0;
+
+        .item {
+          height: 40px;
+          line-height: 40px;
+          padding: 0 16px;
+
+          &:hover {
+            background: #f5f5f5;
+          }
+        }
+      }
+    }
   }
 `;
