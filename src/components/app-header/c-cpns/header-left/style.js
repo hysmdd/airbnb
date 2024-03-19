@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 export const LeftWrapper = styled.div`
   flex: 1;
-  color: #ff385c;
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.color.primaryColor};
 
-  img {
-    height: 32px;
+  .logo {
+    cursor: pointer;
+    margin-left: 24px;
   }
 `;

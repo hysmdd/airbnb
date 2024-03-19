@@ -5,7 +5,9 @@ import IconLogo from "@/assets/svg/icon_logo";
 const HeaderLeft = memo(() => {
   return (
     <LeftWrapper>
-      <IconLogo />
+      <div className="logo">
+        <IconLogo />
+      </div>
     </LeftWrapper>
   );
 });
