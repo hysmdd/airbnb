@@ -45,5 +45,12 @@ export const RightWrapper = styled.div`
     background: #fff;
     color: ${(props) => props.theme.text.primaryColor};
     cursor: pointer;
+
+    /* transition: box-shadow 200ms ease;
+    &:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    } */
+
+    ${(props) => props.theme.mixin.boxShadow}
   }
 `;
