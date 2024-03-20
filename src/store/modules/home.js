@@ -1,4 +1,8 @@
-import { getHomeGoodPriceData, getHomeHighScoreData } from "@/services";
+import {
+  getHomeDiscountData,
+  getHomeGoodPriceData,
+  getHomeHighScoreData,
+} from "@/services";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchHomeDataAction = createAsyncThunk(
@@ -10,6 +14,9 @@ export const fetchHomeDataAction = createAsyncThunk(
     getHomeHighScoreData().then((res) => {
       dispatch(changeHighScoreInfoAction(res));
     });
+    getHomeDiscountData().then((res) => {
+      dispatch(changeDiscountInfoAction(res));
+    });
   }
 );
 
@@ -18,6 +25,7 @@ const homeSlice = createSlice({
   initialState: {
     goodPriceInfo: {},
     highScoreInfo: {},
+    discountInfo: {},
   },
   reducers: {
     changeGoodPriceInfoAction(state, { payload }) {
@@ -25,6 +33,9 @@ const homeSlice = createSlice({
     },
     changeHighScoreInfoAction(state, { payload }) {
       state.highScoreInfo = payload;
+    },
+    changeDiscountInfoAction(state, { payload }) {
+      state.discountInfo = payload;
     },
   },
   extraReducers: (builder) => {
@@ -34,7 +45,10 @@ const homeSlice = createSlice({
   },
 });
 
-export const { changeGoodPriceInfoAction, changeHighScoreInfoAction } =
-  homeSlice.actions;
+export const {
+  changeGoodPriceInfoAction,
+  changeHighScoreInfoAction,
+  changeDiscountInfoAction,
+} = homeSlice.actions;
 
 export default homeSlice.reducer;
