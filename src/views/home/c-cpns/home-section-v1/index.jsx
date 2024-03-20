@@ -9,7 +9,7 @@ const HomeSectionV1 = memo((props) => {
   return (
     <SectionV1Wrapper>
       <SectionHeader title={infoData?.title} subtitle={infoData?.subtitle} />
-      <SectionRooms roomList={infoData?.list} />
+      <SectionRooms itemWidth="25%" roomList={infoData?.list} />
     </SectionV1Wrapper>
   );
 });
