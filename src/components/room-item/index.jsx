@@ -7,7 +7,7 @@ const RoomItem = memo((props) => {
   const { itemData, itemWidth = "25%" } = props;
   return (
     <RoomWrapper
-      itemWidth={itemWidth}
+      $itemWidth={itemWidth}
       $verifyColor={itemData?.verify_info?.text_color || "#39576a"}
     >
       <div className="inner">
