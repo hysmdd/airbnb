@@ -8,6 +8,7 @@ export const ViewWrapper = styled.div`
     overflow: hidden;
     .scroll-content {
       display: flex;
+      white-space: nowrap;
       transition: transform 250ms ease;
     }
   }

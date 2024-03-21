@@ -29,3 +29,9 @@ export function getHomeLongForData() {
     url: "/home/longfor",
   });
 }
+
+export function getHomePlusData() {
+  return dexRequest.get({
+    url: "/home/plus",
+  });
+}

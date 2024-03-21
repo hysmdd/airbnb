@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { ViewWrapper } from "./style";
 import IconArrowLeft from "@/assets/svg/icon-arrow-left";
@@ -8,15 +7,14 @@ const ScrollView = memo((props) => {
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(false);
   const [posIndex, setPosIndex] = useState(0);
-  const totalDistanceRef = useRef();
+  const totalDistanceRef = useRef(0);
 
   const scrollContentRef = useRef();
   useEffect(() => {
     const scrollWidth = scrollContentRef.current.scrollWidth;
     const clientWidth = scrollContentRef.current.clientWidth;
-    const totalDistance = scrollWidth - clientWidth;
-    totalDistanceRef.current = totalDistance;
-    setShowRight(totalDistance > 0);
+    totalDistanceRef.current = scrollWidth - clientWidth;
+    setShowRight(totalDistanceRef.current > 0);
   }, [props.children]);
 
   function controlClickHandle(isRight) {
@@ -25,6 +23,10 @@ const ScrollView = memo((props) => {
     const newOffsetLeft = newEl.offsetLeft;
     scrollContentRef.current.style.transform = `translate(-${newOffsetLeft}px)`;
     setPosIndex(newIndex);
+    if (newOffsetLeft > totalDistanceRef.current) {
+      setShowRight(false);
+    }
+    console.log(totalDistanceRef.current, newOffsetLeft);
     setShowRight(totalDistanceRef.current > newOffsetLeft);
     setShowLeft(newOffsetLeft > 0);
   }
