@@ -23,3 +23,9 @@ export function getHomeHotRecommendData() {
     url: "/home/hotrecommenddest",
   });
 }
+
+export function getHomeLongForData() {
+  return dexRequest.get({
+    url: "/home/longfor",
+  });
+}

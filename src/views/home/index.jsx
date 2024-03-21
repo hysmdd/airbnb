@@ -7,18 +7,25 @@ import { fetchHomeDataAction } from "@/store/modules/home";
 import HomeSectionV1 from "./c-cpns/home-section-v1";
 import HomeSectionV2 from "./c-cpns/home-section-v2";
 import { isEmptyO } from "@/utils";
+import HomeLongfor from "./c-cpns/home-longfor";
 
 const Home = memo(() => {
-  const { goodPriceInfo, highScoreInfo, discountInfo, recommendInfo } =
-    useSelector(
-      (state) => ({
-        goodPriceInfo: state.home.goodPriceInfo,
-        highScoreInfo: state.home.highScoreInfo,
-        discountInfo: state.home.discountInfo,
-        recommendInfo: state.home.recommendInfo,
-      }),
-      shallowEqual
-    );
+  const {
+    goodPriceInfo,
+    highScoreInfo,
+    discountInfo,
+    recommendInfo,
+    longforInfo,
+  } = useSelector(
+    (state) => ({
+      goodPriceInfo: state.home.goodPriceInfo,
+      highScoreInfo: state.home.highScoreInfo,
+      discountInfo: state.home.discountInfo,
+      recommendInfo: state.home.recommendInfo,
+      longforInfo: state.home.longforInfo,
+    }),
+    shallowEqual
+  );
 
   // 派发异步事件
   const dispatch = useDispatch();
@@ -33,6 +40,9 @@ const Home = memo(() => {
       <div className="content">
         {isEmptyO(discountInfo) && <HomeSectionV2 infoData={discountInfo} />}
         {isEmptyO(recommendInfo) && <HomeSectionV2 infoData={recommendInfo} />}
+
+        {isEmptyO(longforInfo) && <HomeLongfor infoData={longforInfo} />}
+
         {isEmptyO(goodPriceInfo) && <HomeSectionV1 infoData={goodPriceInfo} />}
         {isEmptyO(highScoreInfo) && <HomeSectionV1 infoData={highScoreInfo} />}
       </div>
