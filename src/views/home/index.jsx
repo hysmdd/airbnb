@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import HomeWrapper from "./style";
@@ -21,12 +21,18 @@ const Home = memo(() => {
 
   const tabNames = discountInfo?.dest_address?.map((item) => item.name);
 
+  const [name, setName] = useState("佛山");
   // 派发异步事件
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchHomeDataAction());
   }, [dispatch]);
+
+  const tabClickHandle = useCallback((index, name) => {
+    console.log(index, name);
+    setName(name);
+  }, []);
 
   return (
     <HomeWrapper>
@@ -37,10 +43,10 @@ const Home = memo(() => {
             title={discountInfo?.title}
             subtitle={discountInfo?.subtitle}
           />
-          <SectionTabs tabNames={tabNames} />
+          <SectionTabs tabClick={tabClickHandle} tabNames={tabNames} />
           <SectionRooms
             itemWidth="33.33%"
-            roomList={discountInfo?.dest_list?.["成都"]}
+            roomList={discountInfo?.dest_list?.[name]}
           />
         </div>
         <HomeSectionV1 infoData={goodPriceInfo} />
