@@ -5,8 +5,8 @@ export const TabsWrapper = styled.div`
 
   .item {
     box-sizing: border-box;
-    /* flex-basis: 120px; */
-    /* flex-shrink: 0; */
+    flex-basis: 120px;
+    flex-shrink: 0;
     padding: 14px 16px;
     margin-right: 16px;
     border-radius: 3px;
