@@ -16,12 +16,15 @@ export const changeTotalCountAction = (totalCount) => ({
   totalCount,
 });
 
-export const fetchRoomListAction = () => {
-  return async (dispatch, getState) => {
-    const currentPage = getState().entire.currentPage;
-    const res = await getEntireRoomList(20 * currentPage);
+export const fetchRoomListAction = (page = 0) => {
+  return async (dispatch) => {
+    dispatch(changeCurrentPageAction(page));
+    // const currentPage = getState().entire.currentPage;
+    const res = await getEntireRoomList(20 * page);
+
     const totalCount = res.totalCount;
     const roomList = res.list;
+
     dispatch(changeRoomListAction(roomList));
     dispatch(changeTotalCountAction(totalCount));
   };
