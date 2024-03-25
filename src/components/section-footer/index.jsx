@@ -2,6 +2,7 @@ import IconMoreArrow from "@/assets/svg/icon-more-arrow";
 import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { FooterWrapper } from "./style";
+import { useNavigate } from "react-router-dom";
 
 const SectionFooter = memo((props) => {
   const { name } = props;
@@ -9,9 +10,13 @@ const SectionFooter = memo((props) => {
   if (name) {
     showMessage = `显示更多${name}房源`;
   }
+  const navigate = useNavigate();
+  function handleClickHandle() {
+    navigate("/entire");
+  }
   return (
     <FooterWrapper color={name ? "#00848A" : "#000"}>
-      <div className="info">
+      <div className="info" onClick={handleClickHandle}>
         <span className="text">{showMessage}</span>
         <IconMoreArrow />
       </div>
