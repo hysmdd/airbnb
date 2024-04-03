@@ -26,55 +26,57 @@ const RoomItem = memo((props) => {
     }
     setSelectIndex(newIndex);
   }
+
+  const pictureElement = (
+    <div className="cover">
+      <img src={itemData.picture_url} alt="" />
+    </div>
+  );
+
+  const swiperElement = (
+    <div className="swiper">
+      <div className="control">
+        <div className="btn left" onClick={(e) => controlClickHandle(false)}>
+          <IconArrowLeft width="20" height="20" />
+        </div>
+        <div className="btn right" onClick={(e) => controlClickHandle(true)}>
+          <IconArrowRight width="20" height="20" />
+        </div>
+      </div>
+      <div className="indicator">
+        <Indicator selectIndex={selectIndex}>
+          {itemData?.picture_urls?.map((item, index) => {
+            return (
+              <div key={index} className="dot-item">
+                <span
+                  className={classNames("dot", {
+                    active: selectIndex === index,
+                  })}
+                ></span>
+              </div>
+            );
+          })}
+        </Indicator>
+      </div>
+      <Carousel dots={false} ref={sliderRef}>
+        {itemData?.picture_urls?.map((item) => {
+          return (
+            <div className="cover" key={item}>
+              <img src={item} alt="" />
+            </div>
+          );
+        })}
+      </Carousel>
+    </div>
+  );
+
   return (
     <RoomWrapper
       $itemWidth={itemWidth}
       $verifyColor={itemData?.verify_info?.text_color || "#39576a"}
     >
       <div className="inner">
-        {/* <div className="cover">
-          <img src={itemData.picture_url} alt="" />
-        </div> */}
-        <div className="swiper">
-          <div className="control">
-            <div
-              className="btn left"
-              onClick={(e) => controlClickHandle(false)}
-            >
-              <IconArrowLeft width="20" height="20" />
-            </div>
-            <div
-              className="btn right"
-              onClick={(e) => controlClickHandle(true)}
-            >
-              <IconArrowRight width="20" height="20" />
-            </div>
-          </div>
-          <div className="indicator">
-            <Indicator selectIndex={selectIndex}>
-              {itemData?.picture_urls.map((item, index) => {
-                return (
-                  <div key={index} className="dot-item">
-                    <span
-                      className={classNames("dot", {
-                        active: selectIndex === index,
-                      })}
-                    ></span>
-                  </div>
-                );
-              })}
-            </Indicator>
-          </div>
-          <Carousel dots={false} ref={sliderRef}>
-            {itemData?.picture_urls?.map((item) => {
-              return (
-                <div className="cover" key={item}>
-                  <img src={item} alt="" />
-                </div>
-              );
-            })}
-          </Carousel>
-        </div>
+        {itemData?.picture_urls ? swiperElement : pictureElement}
         <div className="desc">{itemData?.verify_info?.messages.join("·")}</div>
         <div className="name">{itemData.name}</div>
         <div className="price">¥{itemData.price}/晚</div>
