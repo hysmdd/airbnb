@@ -1,17 +1,30 @@
 import PropTypes from "prop-types";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { RoomWrapper } from "./style";
 import { Rating } from "@mui/material";
 import { Carousel } from "antd";
 import IconArrowLeft from "@/assets/svg/icon-arrow-left";
 import IconArrowRight from "@/assets/svg/icon-arrow-right";
 import { useRef } from "react";
+import Indicator from "@/base-ui/indicator";
+import classNames from "classnames";
 
 const RoomItem = memo((props) => {
   const sliderRef = useRef();
   const { itemData, itemWidth = "25%" } = props;
+  const [selectIndex, setSelectIndex] = useState(0);
+
   function controlClickHandle(isRight) {
     isRight ? sliderRef.current.next() : sliderRef.current.prev();
+    //最新索引
+    let newIndex = isRight ? selectIndex + 1 : selectIndex - 1;
+    if (newIndex < 0) {
+      newIndex = itemData.picture_urls.length - 1;
+    }
+    if (newIndex > itemData.picture_urls.length - 1) {
+      newIndex = 0;
+    }
+    setSelectIndex(newIndex);
   }
   return (
     <RoomWrapper
@@ -36,6 +49,21 @@ const RoomItem = memo((props) => {
             >
               <IconArrowRight width="20" height="20" />
             </div>
+          </div>
+          <div className="indicator">
+            <Indicator selectIndex={selectIndex}>
+              {itemData?.picture_urls.map((item, index) => {
+                return (
+                  <div key={index} className="dot-item">
+                    <span
+                      className={classNames("dot", {
+                        active: selectIndex === index,
+                      })}
+                    ></span>
+                  </div>
+                );
+              })}
+            </Indicator>
           </div>
           <Carousel dots={false} ref={sliderRef}>
             {itemData?.picture_urls?.map((item) => {
