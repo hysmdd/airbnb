@@ -11,7 +11,7 @@ import classNames from "classnames";
 
 const RoomItem = memo((props) => {
   const sliderRef = useRef();
-  const { itemData, itemWidth = "25%" } = props;
+  const { itemData, itemWidth = "25%", itemClick } = props;
   const [selectIndex, setSelectIndex] = useState(0);
 
   function controlClickHandle(isRight) {
@@ -25,6 +25,10 @@ const RoomItem = memo((props) => {
       newIndex = 0;
     }
     setSelectIndex(newIndex);
+  }
+
+  function itemClickHandle() {
+    if (itemClick) itemClick(itemData);
   }
 
   const pictureElement = (
@@ -74,6 +78,7 @@ const RoomItem = memo((props) => {
     <RoomWrapper
       $itemWidth={itemWidth}
       $verifyColor={itemData?.verify_info?.text_color || "#39576a"}
+      onClick={itemClickHandle}
     >
       <div className="inner">
         {itemData?.picture_urls ? swiperElement : pictureElement}
