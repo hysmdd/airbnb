@@ -68,6 +68,25 @@ export const BrowserWrapper = styled.div`
         height: 100%;
         user-select: none;
       }
+
+      .pic-enter {
+        transform: translateX(${(props) => (props.isNext ? "100%" : "-100%")});
+        opacity: 0;
+      }
+
+      .pic-enter-active {
+        transform: translateX(0);
+        opacity: 1;
+        transition: all 200ms ease;
+      }
+
+      .pic-exit {
+        opacity: 1;
+      }
+
+      .pic-exit-active {
+        opacity: 0;
+      }
     }
   }
 
