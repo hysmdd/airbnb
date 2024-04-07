@@ -6,11 +6,16 @@ import { BrowserWrapper } from "./style";
 import IconClose from "@/assets/svg/icon_close";
 import IconArrowLeft from "@/assets/svg/icon-arrow-left";
 import IconArrowRight from "@/assets/svg/icon-arrow-right";
+import Indicator from "../indicator";
+import IconTriangleArrowBottom from "@/assets/svg/icon-triangle-arrow-bottom";
+import IconTriangleArrowTop from "@/assets/svg/icon-triangle-arrow-top";
+import classNames from "classnames";
 
 const PictureBrowser = memo((props) => {
   const { pictureUrls, closeClick } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isNext, setIsNext] = useState(true);
+  const [showList, setShowList] = useState(true);
 
   // 当图片浏览器展示出来的时候，应该让滚动条功能消失
   useEffect(() => {
@@ -21,7 +26,7 @@ const PictureBrowser = memo((props) => {
   }, []);
 
   /** 事件监听 */
-  function clockBtnClickHandle() {
+  function clickBtnClickHandle() {
     if (closeClick) {
       closeClick();
     }
@@ -39,10 +44,19 @@ const PictureBrowser = memo((props) => {
     setCurrentIndex(newIndex);
   }
 
+  function toggleShowListHandle() {
+    setShowList(!showList);
+  }
+
+  function imgItemClickHandle(index) {
+    setCurrentIndex(index);
+    setIsNext(index > currentIndex);
+  }
+
   return (
-    <BrowserWrapper isNext={isNext}>
+    <BrowserWrapper isNext={isNext} showList={showList}>
       <div className="top">
-        <div className="close-btn" onClick={clockBtnClickHandle}>
+        <div className="close-btn" onClick={clickBtnClickHandle}>
           <IconClose />
         </div>
       </div>
@@ -67,7 +81,43 @@ const PictureBrowser = memo((props) => {
           </SwitchTransition>
         </div>
       </div>
-      <div className="preview"></div>
+      <div className="preview">
+        <div className="info">
+          <div className="desc">
+            <div className="count">
+              <span>
+                {currentIndex + 1}/{pictureUrls.length}:
+              </span>
+              <span>room Apartment图片{currentIndex + 1}</span>
+            </div>
+            <div className="toggle" onClick={toggleShowListHandle}>
+              {showList ? "隐藏" : "显示"}照片列表&nbsp;
+              {showList ? (
+                <IconTriangleArrowBottom />
+              ) : (
+                <IconTriangleArrowTop />
+              )}
+            </div>
+          </div>
+          <div className="list" style={{ height: showList ? "67px" : "0" }}>
+            <Indicator selectIndex={currentIndex}>
+              {pictureUrls.map((item, index) => {
+                return (
+                  <div
+                    className={classNames("item", {
+                      active: index === currentIndex,
+                    })}
+                    key={item}
+                    onClick={(e) => imgItemClickHandle(index)}
+                  >
+                    <img src={item} alt="" />
+                  </div>
+                );
+              })}
+            </Indicator>
+          </div>
+        </div>
+      </div>
     </BrowserWrapper>
   );
 });
