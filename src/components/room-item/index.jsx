@@ -14,7 +14,9 @@ const RoomItem = memo((props) => {
   const { itemData, itemWidth = "25%", itemClick } = props;
   const [selectIndex, setSelectIndex] = useState(0);
 
-  function controlClickHandle(isRight) {
+  function controlClickHandle(isRight, event) {
+    // 阻止事件冒泡
+    event.stopPropagation();
     isRight ? sliderRef.current.next() : sliderRef.current.prev();
     //最新索引
     let newIndex = isRight ? selectIndex + 1 : selectIndex - 1;
@@ -40,10 +42,10 @@ const RoomItem = memo((props) => {
   const swiperElement = (
     <div className="swiper">
       <div className="control">
-        <div className="btn left" onClick={(e) => controlClickHandle(false)}>
+        <div className="btn left" onClick={(e) => controlClickHandle(false, e)}>
           <IconArrowLeft width="20" height="20" />
         </div>
-        <div className="btn right" onClick={(e) => controlClickHandle(true)}>
+        <div className="btn right" onClick={(e) => controlClickHandle(true, e)}>
           <IconArrowRight width="20" height="20" />
         </div>
       </div>
