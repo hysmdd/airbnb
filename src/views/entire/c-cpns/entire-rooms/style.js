@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const RoomsWrapper = styled.div`
   padding: 40px 20px;
+  margin-top: 88px;
   position: relative;
 
   .title {
